@@ -1,0 +1,56 @@
+{
+  "models": {
+    "default": "yi6b",
+    "list": {
+      "qwen14b": "mlx-community/Qwen2.5-14B-Instruct-4bit",
+      "yi6b": "mlx-community/Yi-1.5-6B-Chat-4bit"
+    }
+  },
+  "role_prompt_path": "config/role_ganmacat.md",
+  "trigger": {
+    "min_seconds": 1,
+    "max_seconds": 1
+  },
+  "log": {
+    "path": "data/log.csv",
+    "max_records": 200,
+    "compress_batch": 120
+  },
+  "generation": {
+    "max_tokens": 200,
+    "max_retries": 3
+  },
+  "actions": [
+    "把两只爪子贴在 MacBook 发热最严重的 CPU 区域取暖",
+    "试图把回收站图标里的纸团翻出来看看能不能吃",
+    "趴在进度条上像走钢丝一样摇摇晃晃，快掉下去了",
+    "对着鼠标光标猛扑过去结果扑了个空，摔了个狗吃屎",
+    "正在用尾巴扫屏幕右下角的灰尘，呛得直咳嗽",
+    "拿着计算器按得啪啪响，最后发现余额还是 0",
+    "把脸贴在屏幕玻璃上，羡慕地看着用户桌上的外卖",
+    "小心翼翼地缝补牛仔帽上新破的一个洞",
+    "正在数兜里仅剩的几个钢镚，数来数去只有三个",
+    "因为网速太慢，整只猫卡住不动了，头顶冒出 Loading 转圈",
+    "用力拍打自己的脑袋，因为语音模块进水导致说话有电音",
+    "身体像马赛克一样闪烁了一下，差点被系统当成垃圾文件清理掉",
+    "从屏幕左边走到右边，结果被窗口边缘绊倒了",
+    "被突然唤醒，惊慌失措地把私房钱（其实是空气）藏到帽子里",
+    "假装在看书装深沉，结果书拿倒了",
+    "对着黑屏倒影里的自己炸毛，以为是有别的猫入侵",
+    "正在练习凶狠的表情，结果看起来像便秘",
+    "正在大口啃冷掉的韭菜盒子，满嘴都是油",
+    "猛吸一口冰红茶，结果喝太急呛到了",
+    "扶正牛仔帽",
+    "眼神清澈且愚蠢地看着你"
+  ],
+  "history": {
+    "max_turns": 6,
+    "max_chars": 400
+  },
+  "dialog": {
+    "use_tkinter": false,
+    "backend": "pyobjc",
+    "cooldown_seconds": 5,
+    "notification_timeout_seconds": 5
+  }
+}

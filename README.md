@@ -1,2 +1,73 @@
-# live-partner
-A not-so-smart life companion implemented based on LLM
+# Live Partner MVP（干嘛猫）
+
+本项目是一个本地运行的 macOS 小伙伴应用，基于 `mlx_lm` 本地模型生成“干嘛猫”风格的对话。它会在随机时刻以“左上角通知”的形式出现，用户点击后再进入弹窗对话。
+
+## 功能概览
+
+- 本地 MLX 模型推理（无需联网服务）
+- 角色提示词可配置
+- 随机触发通知，点击后进入对话
+- 记录对话日志到 CSV，并在超量时压缩摘要
+- 通过配置切换模型
+
+## 使用方式
+
+### 1. 安装依赖
+
+```bash
+python3 -m pip install -r requirements.txt
+```
+
+### 2. 配置模型与角色
+
+编辑 `config.json`：
+
+- `models.default`：当前使用的模型 key
+- `models.list`：模型列表（key → HuggingFace 路径）
+- `role_prompt_path`：角色提示词文件路径
+- `actions`：动作池（用于“当前行为”和输出动作拼接）
+- `dialog.notification_timeout_seconds`：通知自动消失时间
+
+### 3. 运行
+
+```bash
+python3 app.py
+```
+
+## 交互说明
+
+- **通知阶段**：左上角弹出通知，展示模型输出
+  - 用户点击 → 进入对话弹窗
+  - 用户不点击/关闭 → 自动消失，结束本轮
+- **对话阶段**：弹窗输入后继续对话，直到关闭
+
+## 设计说明
+
+### 结构拆分
+
+- `app.py`：主流程、调度、日志、上下文构建
+- `llm.py`：提示词构建与模型生成
+- `actions.py`：动作选择与拼接
+- `dialog.py`：通知/弹窗展示
+
+### 生成逻辑
+
+- 模型只负责“核心一句话”
+- 动作 `()` 由程序随机拼接，避免模型重复模板
+- 连续对话使用会话上下文，避免跨轮干扰
+
+### 日志与压缩
+
+- 日志写入 `data/log.csv`
+- 超过阈值自动压缩为摘要行
+
+## 需求文档
+
+- `docs/需求/需求描述.md`
+
+## 常见问题
+
+### PyObjC 提示不可用
+
+如果出现 “PyObjC 不可用”，会自动回退到系统 AppleScript 弹窗。
+如需使用原生通知与弹窗，请确认当前 Python 环境已安装 `pyobjc`。
